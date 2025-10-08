@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Detcord
 
-## Getting Started
+A Ready Room–inspired Discord clone built with **Next.js**, **TypeScript**, **Prisma**, and **Clerk**.  
+~~Database configured manually with PostgreSQL.~~  
+Database now managed and fully operational through **Supabase**.
 
-First, run the development server:
+---
+
+## Status
+Currently in **early development**. Core structure, authentication, and database connectivity are confirmed working.  
+The Prisma ↔ Supabase integration is fully resolved after extensive configuration, networking, and environment debugging.
+
+> _(Yes, finally, the connection war was won. After spending 6 straight hours trying to get prisma to work with pooling...... "Ladies and Gentlemen, we got him.")
+
+---
+
+## In Progress
+- Modal and API creation  
+- Server and channel logic design  
+- UI structure refinements  
+
+---
+
+## Current Progress
+- ✅ Next.js 14 project initialized  
+- ✅ Clerk authentication functional  
+- ✅ Supabase database connected and verified  
+- ✅ Prisma schema + client operational  
+- ✅ Environment configuration stable across environments  
+
+---
+
+## Next Steps
+- Implement real-time messaging  
+- Add server and channel management  
+- Introduce message persistence and timestamps  
+- Refine Tailwind UI components  
+
+---
+
+## Stack
+| Layer | Tool |
+|-------|------|
+| **Framework** | Next.js 14 |
+| **Language** | TypeScript |
+| **Auth** | Clerk |
+| **Database** | Supabase (PostgreSQL) |
+| **ORM** | Prisma |
+| **Styling** | Tailwind CSS |
+
+---
+
+## Setup
 
 ```bash
+git clone https://github.com/yourusername/detcord.git
+cd detcord
+npm install
+
+# Create a .env file with the following keys:
+DATABASE_URL="your_supabase_connection_string"
+DIRECT_URL="your_supabase_connection_string"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_key"
+CLERK_SECRET_KEY="your_secret"
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
