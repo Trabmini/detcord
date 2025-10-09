@@ -10,8 +10,7 @@ Database now managed and fully operational through **Supabase**.
 Currently in **early development**. Core structure, authentication, and database connectivity are confirmed working.  
 The Prisma ↔ Supabase integration is fully resolved after extensive configuration, networking, and environment debugging.
 
-> _(Yes, finally, the connection war was won. After spending 6 straight hours trying to get prisma to work with pooling...... "Ladies and Gentlemen, we got him.")
-
+>(After six hours of network tracing, pool configuration, and SSL validation, the Prisma ↔ Supabase connection is finally stable. “Ladies and gentlemen — we got him.”)
 ---
 
 ## In Progress
