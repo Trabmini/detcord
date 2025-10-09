@@ -1,13 +1,18 @@
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider   = "postgresql"
-  url        = env("DATABASE_URL")
-  directUrl  = env("DIRECT_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+//
+// Base models
+//
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
@@ -15,86 +20,91 @@ model User {
   createdAt DateTime @default(now())
 }
 
-
 model Profile {
-  id String @id @default(uuid())
-  userId String @unique 
-  name String
-  imageUrl String
-  email String
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  name      String
+  imageUrl  String
+  email     String
 
-  servers Server[]
-  members Member[]
-  channels Channel[]
+  servers   Server[]
+  members   Member[]
+  channels  Channel[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
+//
+// Server hierarchy
+//
 model Server {
-  id String @id @default(uuid())
-  name String
-  imageUrl String
-  inviteCode String
-profileId String
-profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  id          String   @id @default(uuid())
+  name        String
+  imageUrl    String
+  inviteCode  String
 
-  members Member[]
-  channels Channel[]
+  profileId   String
+  profile     Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
+  members     Member[]
+  channels    Channel[]
 
-@@index([profileId])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+  @@index([profileId])
 }
 
-
+//
+// Roles
+//
 enum MemberRole {
-ADMIN
-MODERATOR
-NEIGHBOR
+  ADMIN
+  MODERATOR
+  NEIGHBOR
 }
 
 model Member {
-id String @id @default(uuid())
-role MemberRole @default(NEIGHBOR)
+  id         String      @id @default(uuid())
+  role       MemberRole  @default(NEIGHBOR)
 
-profileId String
-profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId  String
+  profile    Profile     @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
-serverId String
-server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  serverId   String
+  server     Server      @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
-@@index ([profileId])
-@@index([serverId])
+  @@index([profileId])
+  @@index([serverId])
 }
 
+//
+// Channel system
+//
 enum ChannelType {
-TEXT
-AUDIO
-VIDEO
+  TEXT
+  AUDIO
+  VIDEO
 }
 
 model Channel {
-  id String @id @default(uuid())
-  name String 
-  type ChannelType @default(TEXT)
+  id         String       @id @default(uuid())
+  name       String
+  type       ChannelType  @default(TEXT)
 
-  profileId String
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId  String
+  profile    Profile      @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
-serverId String
-server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  serverId   String
+  server     Server       @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 
-
-@@index([serverId])
-@@index([profileId])
+  @@index([serverId])
+  @@index([profileId])
 }

@@ -1,0 +1,15 @@
+
+! option requires argument: --config
+
+Print information helpful for debugging and bug reports
+
+Usage
+
+  $ prisma debug [options]
+
+Options
+
+  -h, --help     Display this help message
+  --config       Custom path to your Prisma config file
+  --schema       Custom path to your Prisma schema
+
